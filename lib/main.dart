@@ -1,26 +1,23 @@
-// Importing the necessary Flutter material package
 import 'package:flutter/material.dart';
 
 void main() {
-  // Entry point of the application, runApp function starts the app
   runApp(const MyApp());
 }
 
-// MyApp class which is the root of the application
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // MaterialApp provides the structure for the app
+  
     return MaterialApp(
-      title: 'Shopeasy', // Title of the application
+      title: 'Shopeasy', 
       theme: ThemeData(
-        primarySwatch: Colors.blue, // Primary color theme
-        scaffoldBackgroundColor: const Color(0xFFF5F5DC), // Background color
+        primarySwatch: Colors.blue, 
+        scaffoldBackgroundColor: const Color(0xFFF5F5DC), 
       ),
-      debugShowCheckedModeBanner: false, // Remove debug banner
-      home: const MyHomePage(), // Set the home page
+      debugShowCheckedModeBanner: false, 
+      home: const MyHomePage(), 
     );
   }
 }
