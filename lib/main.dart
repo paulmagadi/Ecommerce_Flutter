@@ -1,8 +1,16 @@
 // Importing the necessary Flutter material package
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   // Entry point of the application, runApp function starts the app
   runApp(MyApp());
 }
@@ -19,7 +27,26 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF5F5DC), // Background color
       ),
       debugShowCheckedModeBanner: false, // Remove debug banner
-      home: LoginPage(), // Set the home page
+      home: AuthChecker(), // Set the home page
+    );
+  }
+}
+
+// Widget to check authentication status and navigate accordingly
+class AuthChecker extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Show loading indicator while waiting for auth state
+        }
+        if (snapshot.hasData) {
+          return MyHomePage(); // If user is authenticated, show home page
+        }
+        return LoginPage(); // If user is not authenticated, show login page
+      },
     );
   }
 }

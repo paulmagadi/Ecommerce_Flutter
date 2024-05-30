@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "779596846989",
+    "project_id": "ecommerce-1f75f",
+    "storage_bucket": "ecommerce-1f75f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779596846989:android:23f8b260fa234b46700fc4",
+        "android_client_info": {
+          "package_name": "com.example.shopeasy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxMcx_5zMRheU82oN_0SPisEB4hUwC7pQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

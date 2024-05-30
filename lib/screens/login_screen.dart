@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shopeasy/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shopeasy/screens/signup_screen.dart';
+import 'package:shopeasy/screens/forgot_password_screen.dart';
+import 'package:shopeasy/main.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -18,7 +20,7 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: SingleChildScrollView(
+          child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -27,95 +29,97 @@ class LoginPage extends StatelessWidget {
                   'assets/logo.png',
                   height: 100,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
-                  'Welcome to Shopeasy',
+                  'Welcome back to Cakeify',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Login to your account',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
-                ),
-                SizedBox(height: 40),
+                const SizedBox(height: 20),
                 TextField(
                   controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    floatingLabelStyle:
-                        TextStyle(color: Color.fromARGB(255, 41, 40, 39)),
+                    labelStyle: const TextStyle(color: Colors.white),
+                    floatingLabelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Colors.white.withOpacity(0.8),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
                   controller: passwordController,
-                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    floatingLabelStyle:
-                        TextStyle(color: Color.fromARGB(255, 41, 40, 39)),
+                    labelStyle: const TextStyle(color: Colors.white),
+                    floatingLabelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Colors.white.withOpacity(0.8),
                   ),
+                  obscureText: true,
                 ),
-                SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      // Navigate to forgot password page
-                    },
-                    child: Text('Forgot Password?',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()),
-                    );
+                  onPressed: () async {
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()),
+                      );
+                    } catch (e) {
+                      // Handle login error
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to sign in: $e')),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.blue.shade900,
                   ),
-                  child: Text('Login', style: TextStyle(fontSize: 18)),
+                  child: const Text('Login', style: TextStyle(fontSize: 18)),
                 ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Don\'t have an account?',
-                        style: TextStyle(color: Colors.white)),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignUpPage()),
-                        );
-                      },
-                      child: Text('Sign Up'),
-                    ),
-                  ],
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpPage()),
+                    );
+                  },
+                  child: const Text(
+                    'Don\'t have an account? Sign Up',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ForgotPasswordPage()),
+                    );
+                  },
+                  child: const Text(
+                    'Forgot Password?',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
