@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:shopeasy/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  // Entry point of the application, runApp function starts the app
-  runApp(MyApp());
-=======
 import 'package:shopeasy/screens/login_screen.dart'; // Import your LoginPage here
 
 void main() {
   runApp(const MyApp());
->>>>>>> 0de46a79176b82e7c696d00efb04dbb991dbf40d
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: const Color(0xFFF5F5DC),
       ),
-<<<<<<< HEAD
+
       debugShowCheckedModeBanner: false, // Remove debug banner
       home: AuthChecker(), // Set the home page
     );
@@ -54,10 +43,6 @@ class AuthChecker extends StatelessWidget {
         }
         return LoginPage(); // If user is not authenticated, show login page
       },
-=======
-      debugShowCheckedModeBanner: false,
-      home: const LoginPage(), // Set the home page to LoginPage
->>>>>>> 0de46a79176b82e7c696d00efb04dbb991dbf40d
     );
   }
 }
@@ -277,7 +262,8 @@ class CategoriesScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text(
                       products[index]['stock']!,
-                      style: const TextStyle(fontSize: 14.0, color: Colors.grey),
+                      style:
+                          const TextStyle(fontSize: 14.0, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -343,4 +329,3 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
-
