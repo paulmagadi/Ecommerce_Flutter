@@ -1,5 +1,5 @@
-// Importing the necessary Flutter material package
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:shopeasy/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,19 +13,26 @@ void main() async {
 
   // Entry point of the application, runApp function starts the app
   runApp(MyApp());
+=======
+import 'package:shopeasy/screens/login_screen.dart'; // Import your LoginPage here
+
+void main() {
+  runApp(const MyApp());
+>>>>>>> 0de46a79176b82e7c696d00efb04dbb991dbf40d
 }
 
-// MyApp class which is the root of the application
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    // MaterialApp provides the structure for the app
     return MaterialApp(
-      title: 'Shopeasy', // Title of the application
+      title: 'Shopeasy',
       theme: ThemeData(
-        primarySwatch: Colors.blue, // Primary color theme
-        scaffoldBackgroundColor: const Color(0xFFF5F5DC), // Background color
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: const Color(0xFFF5F5DC),
       ),
+<<<<<<< HEAD
       debugShowCheckedModeBanner: false, // Remove debug banner
       home: AuthChecker(), // Set the home page
     );
@@ -47,6 +54,10 @@ class AuthChecker extends StatelessWidget {
         }
         return LoginPage(); // If user is not authenticated, show login page
       },
+=======
+      debugShowCheckedModeBanner: false,
+      home: const LoginPage(), // Set the home page to LoginPage
+>>>>>>> 0de46a79176b82e7c696d00efb04dbb991dbf40d
     );
   }
 }
@@ -60,10 +71,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _searchController =
-      TextEditingController(); // Controller for search input
+  final TextEditingController _searchController = TextEditingController();
 
-  // List of categories with names and image URLs
   List<Map<String, String>> categories = [
     {'name': 'Electronics', 'image': 'https://tinyurl.com/5d5bwe8a'},
     {'name': 'Clothing', 'image': 'https://tinyurl.com/2y3hc96z'},
@@ -73,23 +82,20 @@ class _MyHomePageState extends State<MyHomePage> {
     {'name': 'Toys', 'image': 'https://tinyurl.com/mbdc4nt9'},
   ];
 
-  List<Map<String, String>> displayedCategories =
-      []; // List of categories to display
+  List<Map<String, String>> displayedCategories = [];
 
   @override
   void initState() {
     super.initState();
-    displayedCategories =
-        List.from(categories); // Initialize displayed categories
+    displayedCategories = List.from(categories);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopeasy'), // Title of the app bar
+        title: const Text('Shopeasy'),
         actions: <Widget>[
-          // Search bar
           Container(
             width: 200,
             child: TextField(
@@ -99,14 +105,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 border: InputBorder.none,
                 icon: Icon(Icons.search),
               ),
-              onChanged:
-                  _filterCategories, // Filter categories as the user types
+              onChanged: _filterCategories,
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.person), // Profile icon
+            icon: const Icon(Icons.person),
             onPressed: () {
-              // Navigate to profile screen
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -116,9 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.shopping_cart), // Cart icon
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
-              // Navigate to cart screen
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -129,21 +132,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      // GridView to display categories
       body: GridView.builder(
-        padding: const EdgeInsets.all(10.0), // Padding for the grid
+        padding: const EdgeInsets.all(10.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Number of columns in the grid
-          crossAxisSpacing: 10.0, // Spacing between columns
-          mainAxisSpacing: 10.0, // Spacing between rows
-          childAspectRatio: 1.0, // Aspect ratio of each tile (width / height)
+          crossAxisCount: 2,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+          childAspectRatio: 1.0,
         ),
-        itemCount: displayedCategories.length, // Number of items in the grid
+        itemCount: displayedCategories.length,
         itemBuilder: (BuildContext context, int index) {
-          // GestureDetector to handle taps on the category tiles
           return GestureDetector(
             onTap: () {
-              // Navigate to category screen with the selected category
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -153,22 +153,19 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
             child: Card(
-              elevation: 3.0, // Elevation of the card
+              elevation: 3.0,
               child: Column(
                 children: [
                   Expanded(
-                    // Display category image
                     child: Image.network(
                       displayedCategories[index]['image']!,
                       fit: BoxFit.cover,
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.all(8.0), // Padding around the text
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      displayedCategories[index]
-                          ['name']!, // Display category name
+                      displayedCategories[index]['name']!,
                       style: const TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
@@ -182,7 +179,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // Function to filter categories based on search input
   void _filterCategories(String query) {
     if (query.isEmpty) {
       setState(() {
@@ -202,7 +198,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// Screen to display the products of a specific category
 class CategoriesScreen extends StatelessWidget {
   final String category;
 
@@ -210,7 +205,6 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dummy list of products with details
     List<Map<String, String>> products = [
       {
         'name': 'Product 1',
@@ -246,49 +240,44 @@ class CategoriesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(category), // Title of the app bar
-        centerTitle: true, // Center the title
+        title: Text(category),
+        centerTitle: true,
       ),
-      // GridView to display products
       body: GridView.builder(
-        padding: const EdgeInsets.all(10.0), // Padding for the grid
+        padding: const EdgeInsets.all(10.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Number of columns in the grid
-          crossAxisSpacing: 10.0, // Spacing between columns
-          mainAxisSpacing: 10.0, // Spacing between rows
-          childAspectRatio: 1.0, // Aspect ratio of each tile (width / height)
+          crossAxisCount: 2,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+          childAspectRatio: 1.0,
         ),
-        itemCount: products.length, // Number of items in the grid
+        itemCount: products.length,
         itemBuilder: (BuildContext context, int index) {
-          // GestureDetector to handle taps on the product tiles
           return GestureDetector(
             onTap: () {
-              // Add the product to the cart
               _addToCart(context, products[index]);
             },
             child: Card(
-              elevation: 3.0, // Elevation of the card
+              elevation: 3.0,
               child: Padding(
-                padding: const EdgeInsets.all(8.0), // Padding around the text
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment.center, // Center the content
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      products[index]['name']!, // Display product name
+                      products[index]['name']!,
                       style: const TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      products[index]['price']!, // Display product price
+                      products[index]['price']!,
                       style: const TextStyle(fontSize: 16.0),
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      products[index]['stock']!, // Display product stock status
-                      style:
-                          const TextStyle(fontSize: 14.0, color: Colors.grey),
+                      products[index]['stock']!,
+                      style: const TextStyle(fontSize: 14.0, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -300,22 +289,19 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 
-  // Function to add the product to the cart
   void _addToCart(BuildContext context, Map<String, String> product) {
-    // Implement logic to add the product to the cart
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Item Added to Cart'), // Alert dialog title
-          content: Text(
-              '${product['name']} has been added to your cart.'), // Alert dialog content
+          title: const Text('Item Added to Cart'),
+          content: Text('${product['name']} has been added to your cart.'),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
-              child: const Text('OK'), // OK button
+              child: const Text('OK'),
             ),
           ],
         );
@@ -324,7 +310,6 @@ class CategoriesScreen extends StatelessWidget {
   }
 }
 
-// Dummy ProfileScreen class to represent the user profile
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -332,18 +317,16 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'), // Title of the app bar
-        centerTitle: true, // Center the title
+        title: const Text('Profile'),
+        centerTitle: true,
       ),
       body: const Center(
-        child:
-            Text('User Profile Screen'), // Text content of the profile screen
+        child: Text('User Profile Screen'),
       ),
     );
   }
 }
 
-// Dummy CartScreen class to represent the shopping cart
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 
@@ -351,13 +334,13 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'), // Title of the app bar
-        centerTitle: true, // Center the title
+        title: const Text('Cart'),
+        centerTitle: true,
       ),
       body: const Center(
-        child: Text(
-            'Shopping Cart Screen'), // Text content of the shopping cart screen
+        child: Text('Shopping Cart Screen'),
       ),
     );
   }
 }
+
